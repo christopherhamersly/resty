@@ -1,17 +1,27 @@
-$bg-color: grey;
 
-Header {
-  background-color: $bg-color;
-  font-family: Helvetica;
+
+// #header {
+//   background-color: navy;
+//   height: 100px;
+//   font-family: Helvetica;
+//   text-align: left;
   
-}
-h1{
-  color: grey;
-  font-family: Helvetica;
+// }
 
-};
-
-div{
-  background: cyan;
-  height: 200px;
+h1 { 
+  text-align: left;
+  color: white;
+  justify-content: center;
+  font-size: 3em;
+  margin-left: 30px;
+  margin-bottom: 40px;
 }
+  
+#header {
+  background-color: navy;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+

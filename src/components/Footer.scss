@@ -4,4 +4,10 @@ Footer {
   background-color: $bg-color;
   font-family: Helvetica;
   color: cyan;
+  height:60px;
+  width: 100%;
+  justify-content: center;
+  padding-top: 20px;
+  position: relative;
+  bottom: 0px;
 }
