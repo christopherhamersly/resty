@@ -3,7 +3,7 @@ import './Footer.scss';
 
 function Footer() {
   return (<footer className="App-footer">
-    <p> 2020 Chris Hamersly</p>
+    <p> &copy; 2020 Chris Hamersly</p>
   </footer>);
 }
 
