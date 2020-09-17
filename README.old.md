@@ -52,3 +52,5 @@ Expects the count, headers, results to be sent in as props
 Renders the count
 Renders the Result Headers as “pretty” JSON
 Renders the Result Body as “pretty” JSON
+
+#### Wednesday Changes
