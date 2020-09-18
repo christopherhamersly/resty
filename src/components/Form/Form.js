@@ -1,94 +1,68 @@
-import React, {useState, useEffect} from 'react';
-import md5 from 'md5';
-import './Form.scss';
+import React, { useState, useEffect } from 'react';
 
-class Form extends React.Component {
+function Form(props) {
 
-  constructor(props) {
-    super(props);
+  const [request, setRequest] = useState({});
+
+  useEffect(() => {
     const method = props.request.method || 'get';
     const url = props.request.url || '';
     const data = props.request.data ? JSON.stringify(props.request.data) : '';
-    this.state = {
-      request: {
-      url,
-      method,
-      data,
-    }
+    setRequest({ method, url, data });
+  }, [props, setRequest]);
+
+  const changeURL = (e) => {
+    let url = e.target.value;
+    setRequest({ ...request, url });
   };
-  }
-// built in react function
-  componentDidUpdate(props) {
-    const nextHash = md5(JSON.stringify(props.request));
-    const stateHash = md5(JSON.stringify(this.state.request));
 
-    if (nextHash === stateHash) return;
+  const changeMethod = (method) => {
+    setRequest({ ...request, method });
+  };
 
-    const request = {...props.request};
-    this.setState({request});
-  }
-
-  changeURL = (event) => {
-  let url = event.target.value;
-  const newRequest = {...this.state.request, url};
-  this.setState({request: newRequest});
-  }
-
-  changeMethod = (method) => {
-    const newRequest = {...this.state.request, method};
-    this.setState({request: newRequest});
-  }
-
-  changeBody = (event) => {
+  const changeBody = (e) => {
     try {
-      let data = JSON.parse(event.target.value);
-      const newRequest = {...this.state.request, data};
-
-      this.setState({ request: newRequest});
-    } catch(error) {
-      console.log('error', error);
-    }
+      let data = JSON.parse(e.target.value);
+      setRequest({ ...request, data });
+    } catch (e) { }
   };
 
-  handleSubmit = async event => {
-    event.preventDefault()
-    this.props.handler(this.state.request);
+  const handleSubmit = async e => {
+    e.preventDefault();
+    props.handler(request);
   };
 
- 
-
-
-  render (){
-    return (
-    <form id="form-render" onSubmit={this.handleSubmit}>
-      <div id="questions">
-      <input 
-      name="url"
-      onChange={this.changeURL} 
-      type="text" 
-      id="website"
-      placeholder="www.whateveryouwant.inhere"
-      defaultValue={this.state.request.url}/>
-      <br></br>
-      <button> Let's go.  </button>
-     <br></br>
-      <button  className={`method ${this.state.request.method === 'get'}`} onClick={() => this.changeMethod('get')} id="GET">GET </button>
-      
-      <button className={`method ${this.state.request.method === 'post'}`} id="POST" onClick={()=> this.changeMethod('post')}>POST</button>
-    
-      <button className={`method ${this.state.request.method === 'put'}`}  id="PUT" onClick={() => this.changeMethod('put')}>UPDATE</button>
-     
-      <button className={`method ${this.state.request.method === 'delete'}`} id="DELETE" onClick={() => this.changeMethod('delete')}>DELETE
-      </button>
-      <>
-      <br></br>
-      <textarea name="data" onChange={this.changeBody} defaultValue={this.state.request.data} placeholder="text goes here" />
-      </>
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <input id="form-input"
+          type="text"
+          name="url"
+          defaultValue={request.url}
+          placeholder="http://api.url.here"
+          onChange={changeURL}
+        />
+        <button>GO!</button>
       </div>
-      </form>)
-    
-  }
+      <div id="questions">
+        <button className={`method ${request.method === 'get'}`} onClick={() => changeMethod('get')}>
+          GET
+        </button>
+        <button className={`method ${request.method === 'post'}`} onClick={() => changeMethod('post')}>
+          POST
+        </button>
+        <button className={`method ${request.method === 'put'}`} onClick={() => changeMethod('put')}>
+          PUT
+        </button>
+        <button className={`method ${request.method === 'delete'}`} onClick={() => changeMethod('delete')}>
+          DELETE
+        </button>
+
+        <textarea name="data" onChange={changeBody} defaultValue={request.data} />
+
+      </div>
+    </form >
+  );
 }
 
 export default Form;
-

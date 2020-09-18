@@ -1,16 +1,16 @@
-
 import React from 'react';
 import md5 from 'md5';
-import axios from'axios';
+import axios from 'axios';
+
+import Header from '../Header/Header';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
+// import Form from '../Form/Form';
+// import Results from '../Results/Results';
+// import History from '../History/History';
 
 import './App.scss';
-import Header from '../Header/Header';
-import Form from '../Form/Form';
-import Results from '../Results/Results';
-import Footer from '../Footer/Footer';
-import History from '../History/History.js';
-
-
+import { BrowserRouter } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class App extends React.Component {
   }
 
   fetchResults = async (request) => {
-    console.log('in the fetch results function');
+
     try {
 
       this.toggleLoading();
@@ -57,16 +57,15 @@ class App extends React.Component {
       let response = await axios(request);
 
       this.toggleLoading();
-      console.log('request', request);
-      console.log('response', response);
+
 
       this.updateHistory(request);
 
       this.updateResults(response.headers, response.data);
 
     }
-    catch  {
-      
+    catch (e) {
+      console.log(e);
     }
   }
 
@@ -78,13 +77,16 @@ class App extends React.Component {
   render() {
     return (
       <>
+      <BrowserRouter>
         <Header />
-        <Form request={this.state.request} handler={this.fetchResults} />
-        <main>
-          <History handler={this.updateRequest} calls={this.state.history} />
-          <Results loading={this.state.loading} headers={this.state.headers} results={this.state.results} />
-        </main>
+        <Main />
+        {/* <Form request={this.state.request} handler={this.fetchResults} /> */}
+        {/* <main> */}
+          {/* <History handler={this.updateRequest} calls={this.state.history} /> */}
+          {/* <Results loading={this.state.loading} headers={this.state.headers} results={this.state.results} /> */}
+        {/* </main> */}
         <Footer />
+      </BrowserRouter>
       </>
     );
   }
