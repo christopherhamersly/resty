@@ -23,5 +23,27 @@ h1 {
   padding-bottom: 20px;
 }
 
+#nav {
+  display: inline;
+  padding: 20px;
+  text-align: center;
+  margin-left: 12%;
+  margin-right: 12%;
+
+
+}
+
+#clickNav:hover{
+  color: white;
+  background-color:red;
+  padding: 10px;
+}
+
+#clickNav {
+  color:white;
+  background-color: grey;
+  padding: 10px;
+}
+
 
 

@@ -1,3 +1,15 @@
-#App-footer{
-  text-align: center;
+$bg-color: grey;
+
+Footer {
+  background-color: $bg-color;
+  font-family: Helvetica;
+  color: cyan;
+  height:5%;
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
+  justify-content: center;
+  padding-top: 20px;
+  position: fixed;
+  bottom: 0px;
 }
